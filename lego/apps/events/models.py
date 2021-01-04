@@ -882,13 +882,6 @@ class Registration(BasisModel):
         self.handle_user_penalty(presence)
         self.save()
 
-    def set_photo_consent(self, photo_consent):
-        """Wrap this method in a transaction"""
-        if photo_consent not in dict(constants.PHOTO_CONSENT_CHOICES):
-            raise ValueError("Illegal photo consent choice")
-        self.photo_consent = photo_consent
-        self.save()
-
     def handle_user_penalty(self, presence):
         if (
             self.event.heed_penalties
