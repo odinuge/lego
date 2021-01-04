@@ -526,3 +526,34 @@ class Penalty(BasisModel):
         elif winter_to < (date.month, date.day) < winter_from:
             return False
         return True
+
+
+class PhotoConsent(BasisModel):
+    user = models.ForeignKey(
+        User, related_name="photo_consents", on_delete=models.CASCADE
+    )
+    semester = models.CharField(max_length=3)
+    domain = models.CharField(choices=constants.PHOTO_CONSENT_DOMAINS, max_length=100)
+    is_consenting = models.BooleanField(blank=True, null=True, default=None)
+
+    def get_consents(self, user):
+        pc = PhotoConsent.objects.filter(user=user)
+        now = timezone.now()
+        current_semester = ("H" if now.month > 7 else "V") + str(now.year)[2:4]
+        if not pc.filter(semester=current_semester, domain="SOCIAL_MEDIA"):
+            PhotoConsent.objects.create(
+                user=user,
+                semester=current_semester,
+                domain="SOCIAL_MEDIA",
+                is_consenting=None,
+            )
+
+        if not pc.filter(semester=current_semester, domain="WEBSITE"):
+            PhotoConsent.objects.create(
+                user=user,
+                semester=current_semester,
+                domain="WEBSITE",
+                is_consenting=None,
+            )
+
+        return pc

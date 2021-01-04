@@ -11,8 +11,9 @@ from lego.apps.jwt.handlers import get_jwt_token
 from lego.apps.permissions.api.views import AllowedPermissionsMixin
 from lego.apps.permissions.constants import CREATE, EDIT
 from lego.apps.users import constants
-from lego.apps.users.models import AbakusGroup, User
+from lego.apps.users.models import AbakusGroup, PhotoConsent, User
 from lego.apps.users.registrations import Registrations
+from lego.apps.users.serializers.photo_consents import PhotoConsentSerializer
 from lego.apps.users.serializers.registration import RegistrationConfirmationSerializer
 from lego.apps.users.serializers.users import (
     ChangeGradeSerializer,
@@ -176,3 +177,30 @@ class UsersViewSet(AllowedPermissionsMixin, viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        permission_classes=[IsAuthenticated],
+        serializer_class=PhotoConsentSerializer,
+    )
+    def update_photo_consent(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = self.get_object()
+
+        with transaction.atomic():
+            photo_consent = user.photo_consents.get(
+                semester=request.data.get("semester"), domain=request.data.get("domain")
+            )
+            if photo_consent is None:
+                PhotoConsent.objects.create(
+                    user=user,
+                    semester=request.data.get("semester"),
+                    domain=request.data.get("domain"),
+                    is_consenting=request.data.get("is_consenting"),
+                )
+            else:
+                photo_consent.is_consenting = request.data.get("is_consenting")
+                photo_consent.save()
+        return Response(MeSerializer(user).data)
