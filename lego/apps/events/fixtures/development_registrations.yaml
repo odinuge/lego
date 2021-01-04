@@ -1604,7 +1604,7 @@
     unregistration_date: null
     user: 1
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 178
 - fields:
@@ -1614,7 +1614,7 @@
     unregistration_date: null
     user: 2
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 179
 - fields:
@@ -1624,7 +1624,7 @@
     unregistration_date: null
     user: 3
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_NOT_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_NOT_CONSENT'
   model: events.Registration
   pk: 180
 - fields:
@@ -1634,7 +1634,7 @@
     unregistration_date: null
     user: 4
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 181
 - fields:
@@ -1644,7 +1644,7 @@
     unregistration_date: null
     user: 5
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 182
 - fields:
@@ -1654,7 +1654,7 @@
     unregistration_date: null
     user: 6
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 183
 - fields:
@@ -1664,7 +1664,7 @@
     unregistration_date: null
     user: 7
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_NOT_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_NOT_CONSENT'
   model: events.Registration
   pk: 184
 - fields:
@@ -1683,7 +1683,7 @@
     unregistration_date: null
     user: 9
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 186
 - fields:
@@ -1693,7 +1693,7 @@
     unregistration_date: null
     user: 10
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 187
 - fields:
@@ -1703,7 +1703,7 @@
     unregistration_date: null
     user: 11
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 188
 - fields:
@@ -1713,7 +1713,7 @@
     unregistration_date: null
     user: 12
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 189
 - fields:
@@ -1723,7 +1723,7 @@
     unregistration_date: null
     user: 13
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 190
 - fields:
@@ -1733,7 +1733,7 @@
     unregistration_date: null
     user: 14
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 191
 - fields:
@@ -1743,7 +1743,7 @@
     unregistration_date: null
     user: 15
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 192
 - fields:
@@ -1753,7 +1753,7 @@
     unregistration_date: null
     user: 16
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 193
 - fields:
@@ -1763,7 +1763,7 @@
     unregistration_date: null
     user: 17
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_NOT_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_NOT_CONSENT'
   model: events.Registration
   pk: 194
 - fields:
@@ -1782,7 +1782,7 @@
     unregistration_date: null
     user: 19
     status: 'SUCCESS_REGISTER'
-    photo_consent: 'PHOTO_CONSENT'
+    LEGACY_photo_consent: 'PHOTO_CONSENT'
   model: events.Registration
   pk: 196
 - fields:

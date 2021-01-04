@@ -815,10 +815,10 @@ class Registration(BasisModel):
     presence = models.CharField(
         max_length=20, default=constants.UNKNOWN, choices=constants.PRESENCE_CHOICES
     )
-    photo_consent = models.CharField(
+    LEGACY_photo_consent = models.CharField(
         max_length=20,
         default=constants.UNKNOWN,
-        choices=constants.PHOTO_CONSENT_CHOICES,
+        choices=constants.LEGACY_PHOTO_CONSENT_CHOICES,
     )
 
     payment_intent_id = models.CharField(null=True, max_length=50)
