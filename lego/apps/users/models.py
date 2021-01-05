@@ -446,6 +446,13 @@ class User(
         )
         return count or 0
 
+    def has_registered_photo_consents_for_semester(self, eventSemester):
+        consents = PhotoConsent.objects.filter(user=self, semester=eventSemester)
+        for consent in consents:
+            if not isinstance(consent.is_consenting, bool):
+                return False
+        return True
+
     def restricted_lookup(self):
         """
         Restricted mail
