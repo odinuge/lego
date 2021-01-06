@@ -193,6 +193,9 @@ class UsersViewSet(AllowedPermissionsMixin, viewsets.ModelViewSet):
             photo_consent = user.photo_consents.get(
                 semester=request.data.get("semester"), domain=request.data.get("domain")
             )
+            if request.user.id != user.id:
+                raise ValueError("Cannot update other user's consent")
+
             if photo_consent is None:
                 PhotoConsent.objects.create(
                     user=user,
