@@ -6,7 +6,7 @@ from django.test import override_settings
 from lego.apps.events.models import Event
 from lego.apps.files.models import File
 from lego.apps.users import constants
-from lego.apps.users.models import AbakusGroup, Membership, Penalty, User
+from lego.apps.users.models import AbakusGroup, Membership, Penalty, PhotoConsent, User
 from lego.apps.users.registrations import Registrations
 from lego.utils.test_utils import BaseTestCase, fake_time
 
@@ -381,3 +381,38 @@ class PenaltyTestCase(BaseTestCase):
         self.assertEqual(
             (active.exact_expiration.month, active.exact_expiration.day), (1, 11)
         )
+
+
+class PhotoConsentTestCase(BaseTestCase):
+    fixtures = [
+        "test_users.yaml",
+        "test_abakus_groups.yaml",
+        "test_companies.yaml",
+        "test_events.yaml",
+    ]
+
+    def setUp(self):
+        self.current_semester = "V21"
+        self.test_user = User.objects.get(pk=1)
+
+    def test_update_consent(self):
+        PhotoConsent.objects.create(
+            user=self.test_user,
+            semester=self.current_semester,
+            domain="SOCIAL_MEDIA",
+            is_consenting=None,
+        )
+
+        pc = self.test_user.photo_consents.get(
+            semester=self.current_semester, domain="SOCIAL_MEDIA"
+        )
+
+        self.assertEqual(pc.user, self.test_user)
+        self.assertEqual(pc.semester, self.current_semester)
+        self.assertEqual(pc.domain, "SOCIAL_MEDIA")
+        self.assertIsNone(pc.is_consenting)
+
+        pc.is_consenting = True
+        pc.save()
+
+        self.assertEquals(pc.is_consenting, True)
