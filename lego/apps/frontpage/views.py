@@ -15,6 +15,9 @@ from lego.apps.polls.serializers import (
     DetailedPollSerializer,
     HiddenResultsDetailedPollSerializer,
 )
+from lego.apps.users.models import AbakusGroup
+from lego.apps.users.serializers.abakus_groups import PublicAbakusGroupSerializer
+from lego.apps.users.constants import GROUP_INTEREST
 
 
 class FrontpageViewSet(viewsets.ViewSet):
@@ -90,6 +93,8 @@ class FrontpageViewSet(viewsets.ViewSet):
 
         queryset_poll = Poll.objects.filter(pinned=True).order_by("created_at").last()
 
+        queryset_interestgroups = AbakusGroup.objects.filter(type=GROUP_INTEREST, active=True).order_by("?")
+
         articles = PublicArticleSerializer(
             queryset_articles[:10], context=get_serializer_context(), many=True
         ).data
@@ -106,7 +111,15 @@ class FrontpageViewSet(viewsets.ViewSet):
                 poll = DetailedPollSerializer(
                     queryset_poll, context=get_serializer_context()
                 ).data
+        interestgroups = PublicAbakusGroupSerializer(
+            queryset_interestgroups[:3], context=get_serializer_context(), many=True
+        ).data
 
-        ret = {"articles": articles, "events": events, "poll": poll}
+        ret = {
+            "articles": articles,
+            "events": events,
+            "poll": poll,
+            "interestgroups": interestgroups,
+        }
 
         return Response(ret)
