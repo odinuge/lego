@@ -392,22 +392,27 @@ class PhotoConsentTestCase(BaseTestCase):
     ]
 
     def setUp(self):
-        self.current_semester = "V21"
+        self.current_semester = "SPRING"
+        self.current_year = 2021
         self.test_user = User.objects.get(pk=1)
 
     def test_update_consent(self):
         PhotoConsent.objects.create(
             user=self.test_user,
+            year=self.current_year,
             semester=self.current_semester,
             domain="SOCIAL_MEDIA",
             is_consenting=None,
         )
 
         pc = self.test_user.photo_consents.get(
-            semester=self.current_semester, domain="SOCIAL_MEDIA"
+            year=self.current_year,
+            semester=self.current_semester,
+            domain="SOCIAL_MEDIA",
         )
 
         self.assertEqual(pc.user, self.test_user)
+        self.assertEqual(pc.year, self.current_year)
         self.assertEqual(pc.semester, self.current_semester)
         self.assertEqual(pc.domain, "SOCIAL_MEDIA")
         self.assertIsNone(pc.is_consenting)

@@ -273,11 +273,14 @@ class Event(Content, BasisModel, ObjectPermissionsModel):
         if self.use_contact_tracing and user.phone_number is None:
             raise NoPhoneNumber()
 
-        current_semester = ("H" if self.start_time.month > 7 else "V") + str(
-            self.start_time.year
-        )[2:4]
+        from lego.apps.users import constants
+
+        current_semester = (
+            constants.AUTUMN if self.start_time.month > 7 else constants.SPRING
+        )
         if self.use_consent and not user.has_registered_photo_consents_for_semester(
-            current_semester
+            self.start_time.year,
+            current_semester,
         ):
             raise NotRegisteredPhotoConsents()
 

@@ -99,7 +99,6 @@ class RegistrationReadSerializer(RegistrationPublicReadSerializer):
             "shared_memberships",
             "presence",
             "LEGACY_photo_consent",
-            "photo_consent",
             "status",
             "event",
         )

@@ -6,4 +6,4 @@ from lego.apps.users.models import PhotoConsent
 class PhotoConsentSerializer(serializers.ModelSerializer):
     class Meta:
         model = PhotoConsent
-        fields = ("user", "semester", "domain", "is_consenting", "updated_at")
+        fields = ("user", "year", "semester", "domain", "is_consenting", "updated_at")

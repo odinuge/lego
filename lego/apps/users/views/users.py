@@ -10,6 +10,7 @@ from structlog import get_logger
 from lego.apps.jwt.handlers import get_jwt_token
 from lego.apps.permissions.api.views import AllowedPermissionsMixin
 from lego.apps.permissions.constants import CREATE, EDIT
+from lego.apps.permissions.utils import get_permission_handler
 from lego.apps.users import constants
 from lego.apps.users.models import AbakusGroup, PhotoConsent, User
 from lego.apps.users.registrations import Registrations
@@ -190,20 +191,18 @@ class UsersViewSet(AllowedPermissionsMixin, viewsets.ModelViewSet):
         user = self.get_object()
 
         with transaction.atomic():
-            photo_consent = user.photo_consents.get(
-                semester=request.data.get("semester"), domain=request.data.get("domain")
-            )
-            if request.user.id != user.id:
+            if not request.user.has_perm(EDIT, user):
                 raise ValueError("Cannot update other user's consent")
 
+            photo_consent = user.photo_consents.get(
+                year=serializer.validated_data["year"],
+                semester=serializer.validated_data["semester"],
+                domain=serializer.validated_data["domain"],
+            )
+
             if photo_consent is None:
-                PhotoConsent.objects.create(
-                    user=user,
-                    semester=request.data.get("semester"),
-                    domain=request.data.get("domain"),
-                    is_consenting=request.data.get("is_consenting"),
-                )
+                PhotoConsent.objects.create(**serializer.validated_data)
             else:
-                photo_consent.is_consenting = request.data.get("is_consenting")
+                photo_consent.is_consenting = serializer.validated_data["is_consenting"]
                 photo_consent.save()
         return Response(MeSerializer(user).data)
