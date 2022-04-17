@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0032_event_mazemap_poi'),
+        ("events", "0032_event_mazemap_poi"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='registration',
-            old_name='photo_consent',
-            new_name='LEGACY_photo_consent',
+            model_name="registration",
+            old_name="photo_consent",
+            new_name="LEGACY_photo_consent",
         ),
     ]

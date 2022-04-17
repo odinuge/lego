@@ -1,4 +1,3 @@
-from django.utils import timezone
 from rest_framework import exceptions, serializers
 
 from lego.apps.email.serializers import PublicEmailListSerializer

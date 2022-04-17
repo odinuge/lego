@@ -10,7 +10,6 @@ from structlog import get_logger
 from lego.apps.jwt.handlers import get_jwt_token
 from lego.apps.permissions.api.views import AllowedPermissionsMixin
 from lego.apps.permissions.constants import CREATE, EDIT
-from lego.apps.permissions.utils import get_permission_handler
 from lego.apps.users import constants
 from lego.apps.users.models import AbakusGroup, PhotoConsent, User
 from lego.apps.users.registrations import Registrations
