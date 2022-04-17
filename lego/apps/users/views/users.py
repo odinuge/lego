@@ -1,7 +1,7 @@
 from django.db import transaction
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
@@ -27,7 +27,6 @@ log = get_logger()
 
 
 class UsersViewSet(AllowedPermissionsMixin, viewsets.ModelViewSet):
-
     queryset = User.objects.all()
     lookup_field = "username"
     serializer_class = PublicUserSerializer
@@ -191,13 +190,17 @@ class UsersViewSet(AllowedPermissionsMixin, viewsets.ModelViewSet):
 
         with transaction.atomic():
             if not request.user.has_perm(EDIT, user):
-                raise ValueError("Cannot update other user's consent")
+                raise PermissionDenied(detail="Cannot update other user's consent")
 
-            photo_consent = user.photo_consents.get(
-                year=serializer.validated_data["year"],
-                semester=serializer.validated_data["semester"],
-                domain=serializer.validated_data["domain"],
-            )
+            photo_consent = None
+            try:
+                photo_consent = user.photo_consents.get(
+                    year=serializer.validated_data["year"],
+                    semester=serializer.validated_data["semester"],
+                    domain=serializer.validated_data["domain"],
+                )
+            except Exception:
+                pass
 
             if photo_consent is None:
                 PhotoConsent.objects.create(**serializer.validated_data)
